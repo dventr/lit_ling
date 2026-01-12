@@ -46,6 +46,10 @@ env/
 *.txt
 !requirements.txt
 
+# Exception: Allow anhang files (appendix/supplementary materials)
+!anhang/*.tsv
+!anhang/*.csv
+
 # Output files
 outfiles/
 outfiles_*/

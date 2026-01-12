@@ -1,0 +1,24 @@
+aushandeln	5	0.6	0.64	1.53	0.18	grün	True	4	0.48	0	0.1	1	0.09	0.2	0.3	0.4	0.5	Unnamed: 18	0.6	grün: 4; mitterechts: 1
+Extremismusprävention	7.0	0.67	0.72	1.6	0.0	sozial	True	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	7.0	0.51		0.0	sozial: 7
+Faschismus	8.0	0.67	0.72	1.6	0.0	sozial	True	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	8.0	0.58		0.0	sozial: 8
+Gewaltfreiheit	15.0	0.6	0.64	1.47	0.15	grün	True	12.0	1.45	0.0	0.0	0.0	0.0	0.0	0.0	3.0	0.22		0.0	grün: 12; sozial: 3
+Grundordnung	6.0	0.59	0.63	1.59	0.23	rechts	True	0.0	0.0	0.0	0.0	2.0	0.18	4.0	0.68	0.0	0.0		0.0	mitterechts: 2; rechts: 4
+ideologisch	34.0	0.59	0.63	1.67	0.25	rechts	True	0.0	0.0	1.0	0.39	8.0	0.7	25.0	4.23	0.0	0.0		0.0	mittelinks: 1; mitterechts: 8; rechts: 25
+immerwährend	6.0	0.69	0.74	2.09	0.15	rechts	True	1.0	0.12	0.0	0.0	0.0	0.0	5.0	0.85	0.0	0.0		0.0	grün: 1; rechts: 5
+Lebensentwurf	11.0	0.62	0.66	1.45	0.22	grün	True	9.0	1.09	0.0	0.0	0.0	0.0	1.0	0.17	1.0	0.07		0.0	grün: 9; rechts: 1; sozial: 1
+Menschenfeindlichkeit	6.0	0.56	0.6	1.31	0.24	mitterechts	True	1.0	0.12	0.0	0.0	5.0	0.44	0.0	0.0	0.0	0.0		0.0	grün: 1; mitterechts: 5
+Nährboden	6.0	0.44	0.47	1.19	0.24	mittelinks	True	1.0	0.12	3.0	1.17	1.0	0.09	0.0	0.0	1.0	0.07		0.0	grün: 1; mittelinks: 3; mitterechts: 1; sozial: 1
+Neofaschismus	7.0	0.67	0.72	1.6	0.0	sozial	True	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	7.0	0.51		0.0	sozial: 7
+Presse	7.0	0.47	0.5	1.23	0.25	mittelinks	True	0.0	0.0	3.0	1.17	1.0	0.09	0.0	0.0	3.0	0.22		0.0	mittelinks: 3; mitterechts: 1; sozial: 3
+Radition	5.0	0.67	0.72	1.6	0.0	sozial	True	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	5.0	0.36		0.0	sozial: 5
+Skandal	5.0	0.74	0.79	2.38	0.2	mittelinks	True	2.0	0.24	3.0	1.17	0.0	0.0	0.0	0.0	0.0	0.0		0.0	grün: 2; mittelinks: 3
+Terror	14.0	0.64	0.69	1.66	0.14	rechts	True	0.0	0.0	0.0	0.0	2.0	0.18	11.0	1.86	1.0	0.07		0.0	mitterechts: 2; rechts: 11; sozial: 1
+Ungehorsam	11.0	0.71	0.76	1.83	0.07	grün	True	10.0	1.21	0.0	0.0	0.0	0.0	0.0	0.0	1.0	0.07		0.0	grün: 10; sozial: 1
+verfolgter	6.0	0.69	0.74	1.97	0.1	rechts	True	0.0	0.0	0.0	0.0	0.0	0.0	5.0	0.85	1.0	0.07		0.0	rechts: 5; sozial: 1
+widersetzen	12.0	0.53	0.56	1.25	0.22	rechts	True	0.0	0.0	0.0	0.0	1.0	0.09	8.0	1.35	3.0	0.22		0.0	mitterechts: 1; rechts: 8; sozial: 3
+																				
+																				
+																				
+																				
+																				
+Cluster 0 uneven																				
