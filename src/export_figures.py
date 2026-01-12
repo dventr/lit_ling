@@ -109,7 +109,7 @@ def save_figure_multi_format(fig, base_filename, output_dir="abbildungen", dpi=6
         print(f"   {fmt}")
     
     print(f"\n📋 Publication notes:")
-    print(f"   - Graphikprogramm: Plotly (Python) v{go.__version__}")
+    print(f"   - Graphikprogramm: Plotly (Python)")
     print(f"   - Fonts: Arial/Helvetica (embedded in vector formats)")
     print(f"   - PNG Resolution: 600+ dpi (combination graphics)")
     print(f"   - Vector formats: PDF, SVG (fonts embedded)")

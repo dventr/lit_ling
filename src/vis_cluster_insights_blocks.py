@@ -241,7 +241,7 @@ def calculate_block_composition(df: pd.DataFrame) -> pd.DataFrame:
 # ----------------------------------------------------------
 
 def create_diverging_dotplot(block_comp: pd.DataFrame, cluster_words: dict, topn: int, color_map: dict):
-    """Create the main diverging plot visualization with continuous bars showing exact proportions."""
+    """Create a clean, readable diverging bar chart showing political block distribution."""
     
     print(f"🎨 Erstelle Diverging Plot für Top {topn} Cluster...")
     
@@ -263,67 +263,53 @@ def create_diverging_dotplot(block_comp: pd.DataFrame, cluster_words: dict, topn
     # Create figure
     fig = go.Figure()
     
-    # Process each cluster
-    for idx, row in wide.iterrows():
-        cluster_id = row["Cluster"]
-        cluster_label = f"C{cluster_id}: {cluster_words.get(cluster_id, '')}"
-        
-        # Left side: stack blocks from center outward
-        left_position = 0
-        for block in left_blocks:
-            if block in wide.columns and row[block] > 0:
-                value = row[block]
-                
-                # Add horizontal bar segment for this block on the left side
-                fig.add_trace(go.Bar(
-                    x=[-value],  # Negative for left side
-                    y=[cluster_label],
-                    orientation='h',
-                    marker=dict(
-                        color=color_map.get(block, "#999999"),
-                        line=dict(color="white", width=1),
-                        opacity=0.85
-                    ),
-                    name=block.capitalize(),
-                    legendgroup=block,
-                    showlegend=(idx == 0),  # Only show legend for first occurrence
-                    hovertemplate=f"<b>{block.capitalize()}</b><br>Cluster: {cluster_label}<br>Anteil: {value:.1%}<br>Seite: Links<extra></extra>",
-                    base=[-left_position] if left_position > 0 else None,  # Stack from center
-                    offsetgroup=f"left_{cluster_id}"
-                ))
-                left_position += value
-        
-        # Right side: stack blocks from center outward
-        right_position = 0
-        for block in right_blocks:
-            if block in wide.columns and row[block] > 0:
-                value = row[block]
-                
-                # Add horizontal bar segment for this block on the right side
-                fig.add_trace(go.Bar(
-                    x=[value],  # Positive for right side
-                    y=[cluster_label],
-                    orientation='h',
-                    marker=dict(
-                        color=color_map.get(block, "#999999"),
-                        line=dict(color="white", width=1),
-                        opacity=0.85
-                    ),
-                    name=block.capitalize(),
-                    legendgroup=block,
-                    showlegend=(idx == 0),  # Only show legend for first occurrence
-                    hovertemplate=f"<b>{block.capitalize()}</b><br>Cluster: {cluster_label}<br>Anteil: {value:.1%}<br>Seite: Rechts<extra></extra>",
-                    base=[right_position] if right_position > 0 else None,  # Stack from center
-                    offsetgroup=f"right_{cluster_id}"
-                ))
-                right_position += value
+    # Add traces for each block (simpler approach: show each block separately)
+    all_blocks = left_blocks + right_blocks
     
-    # Update layout with maximum space for y-axis labels
+    for block in all_blocks:
+        if block not in wide.columns:
+            continue
+            
+        # For left blocks, make values negative
+        if block in left_blocks:
+            values = -wide[block].values
+            side_label = "Links"
+        else:
+            values = wide[block].values
+            side_label = "Rechts"
+        
+        # Create y-axis labels
+        y_labels = [f"C{row['Cluster']}: {cluster_words.get(row['Cluster'], '')[:60]}" 
+                   for _, row in wide.iterrows()]
+        
+        fig.add_trace(go.Bar(
+            x=values,
+            y=y_labels,
+            name=block.capitalize(),
+            orientation='h',
+            marker=dict(
+                color=color_map.get(block, "#999999"),
+                line=dict(color="white", width=0.5)
+            ),
+            hovertemplate=(
+                f"<b>{block.capitalize()}</b><br>" +
+                "Cluster: %{y}<br>" +
+                "Anteil: %{customdata:.1%}<br>" +
+                f"Seite: {side_label}<extra></extra>"
+            ),
+            customdata=wide[block].values  # Show actual percentage in hover
+        ))
+    
+    # Sort y-axis labels by political score
+    sorted_labels = [f"C{row['Cluster']}: {cluster_words.get(row['Cluster'], '')[:60]}" 
+                    for _, row in wide.sort_values("political_score", ascending=True).iterrows()]
+    
+    # Update layout
     fig.update_layout(
         title=dict(
-            text=f"<b>Resultate der Dispersionsanalyse geclustert ({topn} Cluster)</b><br>" +
-                 "<sub></sub>",
-            font=dict(size=TITLE_FONT_SIZE),
+            text=f"<b>Politische Block-Verteilung nach Cluster (Top {topn})</b><br>" +
+                 "<sub>Links (negativ) ← → Rechts (positiv)</sub>",
+            font=dict(size=TITLE_FONT_SIZE, family=DEFAULT_FONT),
             x=0.5,
             xanchor='center'
         ),
@@ -331,43 +317,47 @@ def create_diverging_dotplot(block_comp: pd.DataFrame, cluster_words: dict, topn
             title="<b>← Linke Blöcke | Rechte Blöcke →</b>",
             tickformat=".0%",
             zeroline=True,
-            zerolinecolor="rgba(0,0,0,0.8)",
-            zerolinewidth=3,
+            zerolinecolor="rgba(0,0,0,0.9)",
+            zerolinewidth=2,
             gridcolor="rgba(128,128,128,0.2)",
-            title_font=dict(size=AXIS_TITLE_FONT_SIZE),
-            tickfont=dict(size=TICK_FONT_SIZE),
-            range=[-1, 1]  # Set range from -100% to +100%
+            title_font=dict(size=AXIS_TITLE_FONT_SIZE, family=DEFAULT_FONT),
+            tickfont=dict(size=TICK_FONT_SIZE, family=DEFAULT_FONT),
+            range=[-1.05, 1.05]
         ),
         yaxis=dict(
-            title="<b>Cluster (sortiert nach politischer Orientierung)</b>",
-            title_font=dict(size=AXIS_TITLE_FONT_SIZE-2),  # Slightly smaller title
-            tickfont=dict(size=TICK_FONT_SIZE-6),  # Even smaller font for more space
+            title="<b>Cluster</b>",
+            title_font=dict(size=AXIS_TITLE_FONT_SIZE, family=DEFAULT_FONT),
+            tickfont=dict(size=14, family=DEFAULT_FONT),  # Readable size
             categoryorder='array',
-            categoryarray=[f"C{row['Cluster']}: {cluster_words.get(row['Cluster'], '')}" 
-                         for _, row in wide.sort_values("political_score", ascending=True).iterrows()],
-            side='left',
-            tickmode='array',
-            tickvals=[f"C{row['Cluster']}: {cluster_words.get(row['Cluster'], '')}" 
-                     for _, row in wide.sort_values("political_score", ascending=True).iterrows()],
-            ticktext=[f"C{row['Cluster']}: {cluster_words.get(row['Cluster'], '')}" 
-                     for _, row in wide.sort_values("political_score", ascending=True).iterrows()],
-            automargin=True  # Automatically adjust margin for long labels
+            categoryarray=sorted_labels,
+            automargin=True
         ),
-        barmode='relative',  # Stack bars relative to each other
-        height=max(800, topn * 40),  # Increased height per cluster from 35 to 40
-        width=2200,  # Further increased width from 1800 to 2200
+        barmode='stack',
+        height=max(600, topn * 35),
+        width=1800,
         hovermode='closest',
-        bargap=0.2,  # Slightly reduced gap for better space usage
-        bargroupgap=0,  # No gap within the same cluster group
-        margin=dict(l=500, r=200, t=140, b=100)  # Much larger left margin: 300→500
+        bargap=0.15,
+        font=dict(family=DEFAULT_FONT),
+        plot_bgcolor="rgba(250,251,252,0.9)",
+        paper_bgcolor="white",
+        margin=dict(l=450, r=150, t=120, b=100),
+        legend=dict(
+            orientation="v",
+            yanchor="middle",
+            y=0.5,
+            xanchor="left",
+            x=1.02,
+            font=dict(size=LEGEND_FONT_SIZE, family=DEFAULT_FONT),
+            bgcolor="rgba(255,255,255,0.95)",
+            bordercolor="rgba(128,128,128,0.3)",
+            borderwidth=1
+        )
     )
     
-    # Add center line at x=0
-    fig.add_vline(x=0, line_width=3, line_color="black", opacity=0.9)
+    # Add center line
+    fig.add_vline(x=0, line_width=2, line_color="black", opacity=0.8)
     
-    # Add percentage grid lines for better readability
-    for pct in [-0.8, -0.6, -0.4, -0.2, 0.2, 0.4, 0.6, 0.8]:
-        fig.add_vline(x=pct, line_width=1, line_color="rgba(128,128,128,0.3)", line_dash="dot")
+    return fig
     
     return fig
 
