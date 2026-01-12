@@ -17,8 +17,8 @@ import numpy as np
 DATA_FILE = "outfiles/clusters/bert/kmeans/block_uneven_bert_kmeans_clusters.tsv"
 OUTDIR = "outfiles/plots/custom"
 
-# Font configuration (matching visualisierung_cluster.py)
-DEFAULT_FONT = "Lato, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif"
+# Font configuration (Arial/Helvetica für Publikation)
+DEFAULT_FONT = "Arial, Helvetica, sans-serif"
 TITLE_FONT_SIZE = 30
 SUBTITLE_FONT_SIZE = 25
 AXIS_TITLE_FONT_SIZE = 25

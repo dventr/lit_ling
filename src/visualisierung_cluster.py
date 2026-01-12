@@ -17,8 +17,8 @@ cluster_include = [1]
 # Farbzuordnung und Schriften (konfigurierbar)
 # ----------------------------------------------------------
 
-# Schriftarten-Konfiguration (Lato als Default)
-FONT_FAMILY = "Lato, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif"
+# Schriftarten-Konfiguration (Arial/Helvetica für Publikation)
+FONT_FAMILY = "Arial, Helvetica, sans-serif"
 FONT_SIZE = 25
 TITLE_FONT_SIZE = 30
 SUBTITLE_FONT_SIZE = 25
@@ -493,7 +493,6 @@ def create_frequency_dot_plot_organized(df_expanded, word_column, cluster_list):
         plot_bgcolor="rgba(250,251,252,0.9)",
         paper_bgcolor="white",
         margin=dict(l=80, r=150, t=120, b=80),  # Increased right margin for vertical legend
-        showlegend=True
     )
     
     # Globale Achsen-Updates mit verbessertem Styling
@@ -646,9 +645,56 @@ if not df_expanded.empty:
     # Erstelle Frequency Dot Plot
     fig = create_frequency_dot_plot_organized(df_expanded, word_column, cluster_list)
     
-    # Speichere als HTML-Datei
-    output_file = f"outfiles/plots/cluster_words_frequency_dots_organized_{'_'.join(map(str, cluster_list))}.html"
-    save_html_with_font(fig, output_file)
+    # Multi-Format Export für Publikation
+    try:
+        import sys
+        sys.path.insert(0, os.path.dirname(__file__))
+        from export_figures import save_figure_multi_format
+        
+        # Bestimme Abbildungsnummer
+        import glob
+        existing = glob.glob("abbildungen/Abb*.html")
+        fig_num = len(existing) + 1
+        
+        # Export in alle Formate (HTML, PNG, PDF, SVG)
+        save_figure_multi_format(
+            fig,
+            f"Abb{fig_num}",
+            output_dir="abbildungen",
+            dpi=600
+        )
+        output_file = f"abbildungen/Abb{fig_num}.html"
+        
+    except ImportError:
+        # Fallback: nur HTML
+        output_file = f"outfiles/plots/cluster_words_frequency_dots_organized_{'_'.join(map(str, cluster_list))}.html"
+        save_html_with_font(fig, output_file)
+    
+    # Export zu PDF und PNG für Publikation
+    try:
+        import sys
+        import os
+        sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
+        from export_figures import export_figure
+        
+        # Finde Abbildungsnummer basierend auf existierenden Dateien
+        import glob
+        existing_figs = glob.glob("abbildungen/Abb*.html")
+        fig_num = len(existing_figs) + 1
+        
+        export_figure(
+            fig,
+            basename=f"cluster_words_frequency_dots_organized_{'_'.join(map(str, cluster_list))}",
+            output_dir="abbildungen",
+            figure_number=fig_num,
+            width_mm=122,
+            save_html=False,  # HTML bereits gespeichert
+            save_pdf=True,
+            save_png=True
+        )
+        print(f"📄 PDF/PNG exportiert als Abb{fig_num}")
+    except Exception as e:
+        print(f"⚠️  PDF/PNG Export übersprungen: {e}")
     
     # Create accessibility report
     try:
@@ -658,6 +704,7 @@ if not df_expanded.empty:
         print("📋 Note: Install matplotlib to generate accessibility report: pip install matplotlib")
     except Exception as e:
         print(f"📋 Could not create accessibility report: {e}")
+
     
     print(f"✅ Organized Frequency Dot Plot gespeichert: {output_file}")
     
