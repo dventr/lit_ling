@@ -95,16 +95,16 @@ def save_html(fig, outpath: str):
     
     # Add font and styling
     font_inject = '''
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Arial&display=swap" rel="stylesheet">
     <style>
         body { 
-            font-family: 'Lato', sans-serif !important;
+            font-family: Arial, Helvetica, sans-serif !important;
             background-color: #fafbfc;
             margin: 0;
             padding: 20px;
         }
         .js-plotly-plot, .plotly, text { 
-            font-family: 'Lato', sans-serif !important; 
+            font-family: Arial, Helvetica, sans-serif !important; 
         }
         .main-svg {
             border-radius: 8px;
@@ -440,12 +440,26 @@ def main():
         save_html(diverging_fig, diverging_path)
         print(f"✅ Diverging Dot Plot gespeichert: {os.path.abspath(diverging_path)}")
         
+        # Multi-format export
+        try:
+            from export_figures import save_figure_multi_format
+            save_figure_multi_format(diverging_fig, f"Abb5_diverging_dotplot", output_dir="abbildungen", dpi=600)
+        except ImportError:
+            pass
+        
         # 2. SUPPLEMENTARY: Summary Bar Chart
         print("\n📊 Erstelle Ergänzung: Dominanz-Ranking")
         summary_fig = create_summary_bar_chart(block_comp, cluster_words, args.topn, color_map)
         summary_path = os.path.join(args.outdir, f"dominant_blocks_top{args.topn}.html")
         save_html(summary_fig, summary_path)
         print(f"✅ Dominanz-Ranking gespeichert: {os.path.abspath(summary_path)}")
+        
+        # Multi-format export
+        try:
+            from export_figures import save_figure_multi_format
+            save_figure_multi_format(summary_fig, f"Abb6_dominant_blocks", output_dir="abbildungen", dpi=600)
+        except ImportError:
+            pass
         
         # Final summary
         print(f"\n🎉 ALLE VISUALISIERUNGEN ERSTELLT:")

@@ -266,6 +266,7 @@ fig1.update_layout(
     width=min(2400, max(1300, 100*len(lists)))
 )
 save_html_with_font(fig1, str(OUT_DIR / "list_unique_shared.html"))
+save_multi_format(fig1, "list_unique_shared", 1)
 
 # ---------------- 2) Dot-matrix of top shared words ----------------
 n_lists_per_word = presence.sum(axis=1)
@@ -350,6 +351,7 @@ if top_shared_words:
         width=min(2600, max(1400, 110*len(lists)))
     )
     save_html_with_font(fig2, str(OUT_DIR / "shared_dotmatrix.html"))
+    save_multi_format(fig2, "shared_dotmatrix", 2)
 
 # ---------------- 3) Top membership intersections (bar chart + CSV) ----------
 # Represent each word's membership as a sorted tuple of lists
@@ -405,6 +407,7 @@ if top_k > 0:
         width=1800
     )
     save_html_with_font(fig3, str(OUT_DIR / "top_intersections.html"))
+    save_multi_format(fig3, "top_intersections", 3)
 
 # ---------------- 4) Singular (unique) words per list — Treemap (Top 10 per list) ----------------
 # Build long-form dataframe of unique words
@@ -477,6 +480,7 @@ if not uni_long.empty:
         plot_bgcolor="rgba(250,251,252,0.9)",
     )
     save_html_with_font(fig4, str(OUT_DIR / "unique_words_treemap.html"))
+    save_multi_format(fig4, "unique_words_treemap", 4)
 else:
     print("No unique words found; unique_words_treemap.html not created.")
 
