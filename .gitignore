@@ -1,0 +1,74 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Data files (corpus data should not be committed)
+*.tsv
+*.csv
+*.txt
+!requirements.txt
+
+# Output files
+outfiles/
+outfiles_*/
+viz_out/
+
+# Logs
+*.log
+
+# SpaCy models (downloaded separately)
+de_core_news_sm/
+de_core_news_md/
+de_core_news_lg/
+
+# Model files
+*.model
+*.wv
+*.pkl
+*.pickle
+
+# Temporary files
+tmp/
+temp/
+.cache/
+
+# OS
+Thumbs.db

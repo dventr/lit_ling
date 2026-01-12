@@ -1,0 +1,25 @@
+# Core data analysis and manipulation
+pandas>=2.0.0
+numpy>=1.24.0
+
+# Natural Language Processing
+spacy>=3.7.0
+gensim>=4.3.0
+
+# Machine Learning and Clustering
+scikit-learn>=1.3.0
+sentence-transformers>=2.2.0
+
+# Visualization
+matplotlib>=3.7.0
+seaborn>=0.12.0
+plotly>=5.14.0
+
+# Progress bars
+tqdm>=4.65.0
+
+# Additional utilities
+scipy>=1.10.0
+
+# Optional: Download spaCy German model after installing spacy
+# Run: python -m spacy download de_core_news_sm
