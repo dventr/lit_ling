@@ -92,6 +92,15 @@ def load_stopwords() -> set:
 STOPWORDS = load_stopwords()
 
 def save_html_with_font(fig, filepath, title=None):
+    """
+    Save figure in multiple formats for publication:
+    - HTML (interactive)
+    - PNG (600 dpi for combination graphics)
+    - PDF (vector format)
+    - EPS (vector format for publication)
+    
+    Generated with: Plotly (Python) + kaleido export engine
+    """
     html = fig.to_html(full_html=True, include_plotlyjs="cdn")
     font_inject = '''
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -104,8 +113,42 @@ def save_html_with_font(fig, filepath, title=None):
     '''
     html = html.replace("<head>", f"<head>\n{font_inject}")
     os.makedirs(os.path.dirname(filepath), exist_ok=True)
+    
+    # Save HTML
     with open(filepath, "w", encoding="utf-8") as f:
         f.write(html)
+    
+    # Save static formats
+    base_path = Path(filepath).with_suffix('')
+    
+    # PNG: 600 dpi for combination graphics (as per guidelines)
+    # Width in pixels = width_mm * dpi / 25.4
+    # Using 174mm width (max for large format) * 600 dpi / 25.4 ≈ 4110 pixels
+    try:
+        fig.write_image(str(base_path) + ".png", 
+                       width=4110, height=3000,  # High resolution for 600 dpi
+                       scale=2)  # Additional scaling for quality
+        print(f"  ✓ Saved PNG: {base_path}.png")
+    except Exception as e:
+        print(f"  ⚠ Could not save PNG: {e}")
+    
+    # PDF: Vector format
+    try:
+        fig.write_image(str(base_path) + ".pdf", 
+                       width=174*2.83465,  # 174mm in points (1mm = 2.83465pt)
+                       height=234*2.83465)  # 234mm max height
+        print(f"  ✓ Saved PDF: {base_path}.pdf")
+    except Exception as e:
+        print(f"  ⚠ Could not save PDF: {e}")
+    
+    # EPS: Vector format for publication (preferred by publisher)
+    try:
+        fig.write_image(str(base_path) + ".eps",
+                       width=174*2.83465,  # 174mm in points
+                       height=234*2.83465)
+        print(f"  ✓ Saved EPS: {base_path}.eps")
+    except Exception as e:
+        print(f"  ⚠ Could not save EPS: {e}")
 
 def list_name(p: Path) -> str:
     n = p.stem
@@ -255,7 +298,8 @@ fig1.update_layout(
     height=750,
     width=min(2400, max(1300, 100*len(lists)))
 )
-save_html_with_font(fig1, str(OUT_DIR / "list_unique_shared.html"))
+print("\nExporting Abb1 (List unique and shared words):")
+save_html_with_font(fig1, str(OUT_DIR / "Abb1.html"))
 
 # ---------------- 2) Dot-matrix of top shared words ----------------
 n_lists_per_word = presence.sum(axis=1)
@@ -339,7 +383,8 @@ if top_shared_words:
         height=min(2000, max(1200, 24*len(ordered_words))),
         width=min(2600, max(1400, 110*len(lists)))
     )
-    save_html_with_font(fig2, str(OUT_DIR / "shared_dotmatrix.html"))
+    print("\nExporting Abb2 (Shared words dot matrix):")
+    save_html_with_font(fig2, str(OUT_DIR / "Abb2.html"))
 
 # ---------------- 3) Top membership intersections (bar chart + CSV) ----------
 # Represent each word's membership as a sorted tuple of lists
@@ -394,7 +439,8 @@ if top_k > 0:
         height=min(2000, max(900, 32*top_k)),
         width=1800
     )
-    save_html_with_font(fig3, str(OUT_DIR / "top_intersections.html"))
+    print("\nExporting Abb3 (Top list combinations):")
+    save_html_with_font(fig3, str(OUT_DIR / "Abb3.html"))
 
 # ---------------- 4) Singular (unique) words per list — Treemap (Top 10 per list) ----------------
 # Build long-form dataframe of unique words
@@ -466,8 +512,9 @@ if not uni_long.empty:
         paper_bgcolor="white",
         plot_bgcolor="rgba(250,251,252,0.9)",
     )
-    save_html_with_font(fig4, str(OUT_DIR / "unique_words_treemap.html"))
+    print("\nExporting Abb4 (Unique words treemap):")
+    save_html_with_font(fig4, str(OUT_DIR / "Abb4.html"))
 else:
-    print("No unique words found; unique_words_treemap.html not created.")
+    print("No unique words found; Abb4 not created.")
 
 print(f"Done. Outputs saved in: {OUT_DIR}")
