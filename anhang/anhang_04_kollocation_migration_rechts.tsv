@@ -1,3 +1,4 @@
+Word	Total no. in whole corpus	Expected collocate frequency	Observed collocate frequency	In no. of texts	Log Ratio (filtered)
 Papiertiger	1	0	1.1	1.2	13.24
 musst	1	0.0	1	1	13.24
 Entscheider	2	0.0	1	1	12.24

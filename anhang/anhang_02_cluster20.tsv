@@ -1,3 +1,4 @@
+Word	Total_Frequency	DP	DP_Norm	KL_Divergence	Juillands_D	Dominant_Block	Used_Lemmas	Freq_gruen	RelFreqPer10k_gruen	Freq_mittelinks	RelFreqPer10k_mittelinks	Freq_mitterechts	RelFreqPer10k_mitterechts	Freq_rechts	RelFreqPer10k_rechts	Freq_sozial	RelFreqPer10k_sozial	Dominant_Party	Cluster	Parties_Using_Word
 Aufklärung	37	0.18	0.2	0.11	0.77	sozial	True	4	0.48	1	0.39	13	1.14	3	0.51	16	1.16	Unnamed: 18	20	gruen: 4; mittelinks: 1; mitterechts: 13; rechts: 3; sozial: 16
 auftreten	8.0	0.17	0.18	0.1	0.77	mittelinks	True	1.0	0.12	1.0	0.39	3.0	0.26	1.0	0.17	2.0	0.15		20.0	gruen: 1; mittelinks: 1; mitterechts: 3; rechts: 1; sozial: 2
 Cyber	48.0	0.15	0.16	0.09	0.81	mitterechts	True	5.0	0.6	2.0	0.78	20.0	1.76	7.0	1.18	14.0	1.02		20.0	gruen: 5; mittelinks: 2; mitterechts: 20; rechts: 7; sozial: 14
@@ -17,9 +18,3 @@ systematisch	23.0	0.14	0.15	0.09	0.82	sozial	True	2.0	0.24	1.0	0.39	6.0	0.53	4.0
 Verfolgung	21.0	0.18	0.2	0.13	0.76	gruen	True	8.0	0.97	1.0	0.39	4.0	0.35	2.0	0.34	6.0	0.44		20.0	gruen: 8; mittelinks: 1; mitterechts: 4; rechts: 2; sozial: 6
 vorgehen	33.0	0.13	0.14	0.06	0.86	mitterechts	True	4.0	0.48	2.0	0.78	11.0	0.97	3.0	0.51	13.0	0.94		20.0	gruen: 4; mittelinks: 2; mitterechts: 11; rechts: 3; sozial: 13
 weiblich	15.0	0.27	0.28	0.24	0.75	gruen	True	6.0	0.73	1.0	0.39	2.0	0.18	3.0	0.51	3.0	0.22		20.0	gruen: 6; mittelinks: 1; mitterechts: 2; rechts: 3; sozial: 3
-																				
-																				
-																				
-																				
-																				
-Cluster 20 even																				

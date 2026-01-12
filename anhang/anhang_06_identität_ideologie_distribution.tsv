@@ -1,3 +1,4 @@
+Word	Total_Frequency	DP	DP_Norm	KL_Divergence	Juillands_D	Dominant_Block	Used_Lemmas	Freq_gruen	RelFreqPer10k_gruen	Freq_mittelinks	RelFreqPer10k_mittelinks	Freq_mitterechts	RelFreqPer10k_mitterechts	Freq_rechts	RelFreqPer10k_rechts	Freq_sozial	RelFreqPer10k_sozial	Dominant_Party	Cluster	Parties_Using_Word
 Eltern	124	0.17	0.18	0.13	0.79	rechts	True	11	1.33	8	3.11	40	3.52	32	5.41	33	2.4	Unnamed: 18	11.1	gruen: 11; mittelinks: 8; mitterechts: 40; rechts: 32; sozial: 33
 erwachsene	13	0.18	0.19	0.12	0.8	gruen	True	4	0.48	1	0.39	2	0.18	1	0.17	5	0.36		11	gruen: 4; mittelinks: 1; mitterechts: 2; rechts: 1; sozial: 5
 Jugend	33	0.14	0.14	0.11	0.8	rechts	True	3	0.36	3	1.17	8	0.7	8	1.35	11	0.8		11	gruen: 3; mittelinks: 3; mitterechts: 8; rechts: 8; sozial: 11

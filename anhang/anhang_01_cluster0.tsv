@@ -1,3 +1,4 @@
+Word	Total_Frequency	DP	DP_Norm	KL_Divergence	Juillands_D	Dominant_Block	Used_Lemmas	Freq_gruen	RelFreqPer10k_gruen	Freq_mittelinks	RelFreqPer10k_mittelinks	Freq_mitterechts	RelFreqPer10k_mitterechts	Freq_rechts	RelFreqPer10k_rechts	Freq_sozial	RelFreqPer10k_sozial	Dominant_Party	Cluster	Parties_Using_Word
 aushandeln	5	0.6	0.64	1.53	0.18	grün	True	4	0.48	0	0.1	1	0.09	0.2	0.3	0.4	0.5	Unnamed: 18	0.6	grün: 4; mitterechts: 1
 Extremismusprävention	7.0	0.67	0.72	1.6	0.0	sozial	True	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	7.0	0.51		0.0	sozial: 7
 Faschismus	8.0	0.67	0.72	1.6	0.0	sozial	True	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	8.0	0.58		0.0	sozial: 8
@@ -16,9 +17,3 @@ Terror	14.0	0.64	0.69	1.66	0.14	rechts	True	0.0	0.0	0.0	0.0	2.0	0.18	11.0	1.86	1
 Ungehorsam	11.0	0.71	0.76	1.83	0.07	grün	True	10.0	1.21	0.0	0.0	0.0	0.0	0.0	0.0	1.0	0.07		0.0	grün: 10; sozial: 1
 verfolgter	6.0	0.69	0.74	1.97	0.1	rechts	True	0.0	0.0	0.0	0.0	0.0	0.0	5.0	0.85	1.0	0.07		0.0	rechts: 5; sozial: 1
 widersetzen	12.0	0.53	0.56	1.25	0.22	rechts	True	0.0	0.0	0.0	0.0	1.0	0.09	8.0	1.35	3.0	0.22		0.0	mitterechts: 1; rechts: 8; sozial: 3
-																				
-																				
-																				
-																				
-																				
-Cluster 0 uneven																				

@@ -5,16 +5,16 @@ This folder contains supplementary materials and data tables for the linguistic 
 ## Files
 
 ### Cluster Analysis
-- **anhang_01_cluster_ideology.tsv**: Cluster analysis organized by political ideology (23 entries)
-- **anhang_02_cluster_all_ideologies.tsv**: Comprehensive cluster analysis across all ideological groups (24 entries)
+- **anhang_01_cluster0.tsv**: Semantic cluster 0 analysis (23 entries)
+- **anhang_02_cluster20.tsv**: Semantic cluster 20 analysis (24 entries)
 
 ### Collocation Analysis
-- **anhang_03_collocation_data.tsv**: Statistical data on word collocations (383 entries)
-- **anhang_04_collocation_keywords.tsv**: Keyword-specific collocation analysis (31 entries)
+- **anhang_03_kollocation_migration_mitterechts.tsv**: Collocations for "Migration" in center-right discourse (383 entries)
+- **anhang_04_kollocation_migration_rechts.tsv**: Collocations for "Migration" in right-wing discourse (31 entries)
 
 ### Distribution Analysis
-- **anhang_05_party_distribution.tsv**: Word frequency and distribution across political parties (18 entries)
-- **anhang_06_demographic_keywords.tsv**: Analysis of demographic-related keywords (5 entries)
+- **anhang_05_identität_party_distribution.tsv**: "Identität" (identity) word distribution across political parties (18 entries)
+- **anhang_06_identität_ideologie_distribution.tsv**: "Identität" (identity) word distribution across ideologies (5 entries)
 
 ## Data Format
 
