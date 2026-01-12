@@ -5,18 +5,24 @@ Kopiert alle Visualisierungen und nummeriert sie nach Springer-Vorgaben
 """
 
 import sys
-sys.path.insert(0, '/Users/dventr/lit_ling/src')
-
-from export_figures import copy_and_export_html_figures
+import os
 from pathlib import Path
 
-# Verzeichnisse mit Visualisierungen
+# Add src to path
+sys.path.insert(0, os.path.join(os.path.dirname(__file__)))
+
+from export_figures import copy_and_export_html_figures
+
+# Get current working directory
+WORKSPACE = Path.cwd()
+
+# Verzeichnisse mit Visualisierungen (relativ zum workspace)
 VIZ_DIRS = [
-    "/Users/dventr/litling/viz_out",
-    "/Users/dventr/litling/outfiles/plots",
+    WORKSPACE / "viz_out",
+    WORKSPACE / "outfiles" / "plots",
 ]
 
-OUTPUT_DIR = "/Users/dventr/lit_ling/abbildungen"
+OUTPUT_DIR = WORKSPACE / "abbildungen"
 
 def main():
     print("Springer-konforme Nummerierung aller Visualisierungen")
@@ -48,6 +54,7 @@ def main():
     print("\n" + "=" * 60)
     print(f"✅ Kopieren abgeschlossen!")
     print(f"📂 Ausgabe: {OUTPUT_DIR}")
+    print(f"📂 Workspace: {WORKSPACE}")
     print(f"📊 {figure_number - 1} Abbildungen nummeriert")
     print("\n📝 Nächste Schritte:")
     print("   1. Für EPS/PNG-Export: Visualisierungsskripte mit")

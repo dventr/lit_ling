@@ -5,7 +5,11 @@ Beispiel: Springer-konformer Export für eine Plotly-Figur
 """
 
 import sys
-sys.path.insert(0, '/Users/dventr/lit_ling/src')
+import os
+from pathlib import Path
+
+# Add src to path
+sys.path.insert(0, os.path.join(os.path.dirname(__file__)))
 
 import plotly.graph_objects as go
 from export_figures import export_figure
@@ -27,10 +31,11 @@ fig.update_layout(
 )
 
 # Export in Springer-Formate
+output_dir = Path.cwd() / "abbildungen"
 files = export_figure(
     fig,
     basename="beispiel_abbildung",
-    output_dir="/Users/dventr/lit_ling/abbildungen",
+    output_dir=str(output_dir),
     figure_number=99,  # Beispiel-Nummer
     width_mm=122,      # Zwei-Spalten-Breite (kleinformatig)
     height_mm=90,      # Angepasste Höhe

@@ -256,6 +256,8 @@ if __name__ == "__main__":
     print("=" * 50)
     print("\nDieses Modul muss aus anderen Skripten importiert werden.")
     print("\nBeispiel:")
+    print("  import sys")
+    print("  sys.path.insert(0, 'src')")
     print("  from export_figures import export_figure")
     print("  export_figure(fig, 'kollokation_migration', figure_number=1)")
     print("\nOder HTML-Figuren kopieren:")
