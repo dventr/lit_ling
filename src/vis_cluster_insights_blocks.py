@@ -248,7 +248,7 @@ def create_diverging_dotplot(block_comp: pd.DataFrame, cluster_words: dict, topn
     # Create wide format
     wide = block_comp.pivot_table(index="Cluster", columns="Block", values="Share", fill_value=0).reset_index()
     
-    # Define political sides
+    # Define political sides (in parliamentary order)
     left_blocks = ["sozial", "grün", "mittelinks"]
     right_blocks = ["mitte", "mitterechts", "rechts"]
     
@@ -263,27 +263,17 @@ def create_diverging_dotplot(block_comp: pd.DataFrame, cluster_words: dict, topn
     # Create figure
     fig = go.Figure()
     
-    # Add traces for each block (simpler approach: show each block separately)
-    all_blocks = left_blocks + right_blocks
-    
-    for block in all_blocks:
+    # Add LEFT blocks (stacked, shown as negative values on left side)
+    for block in reversed(left_blocks):  # Reverse to stack in correct order
         if block not in wide.columns:
             continue
-            
-        # For left blocks, make values negative
-        if block in left_blocks:
-            values = -wide[block].values
-            side_label = "Links"
-        else:
-            values = wide[block].values
-            side_label = "Rechts"
         
         # Create y-axis labels
         y_labels = [f"C{row['Cluster']}: {cluster_words.get(row['Cluster'], '')[:60]}" 
                    for _, row in wide.iterrows()]
         
         fig.add_trace(go.Bar(
-            x=values,
+            x=-wide[block].values,  # Negative for left side
             y=y_labels,
             name=block.capitalize(),
             orientation='h',
@@ -295,20 +285,50 @@ def create_diverging_dotplot(block_comp: pd.DataFrame, cluster_words: dict, topn
                 f"<b>{block.capitalize()}</b><br>" +
                 "Cluster: %{y}<br>" +
                 "Anteil: %{customdata:.1%}<br>" +
-                f"Seite: {side_label}<extra></extra>"
+                "Seite: Links<extra></extra>"
             ),
-            customdata=wide[block].values  # Show actual percentage in hover
+            customdata=wide[block].values,
+            legendgroup="left",
+            showlegend=True
         ))
     
-    # Sort y-axis labels by political score
+    # Add RIGHT blocks (stacked, shown as positive values on right side)
+    for block in right_blocks:
+        if block not in wide.columns:
+            continue
+        
+        # Create y-axis labels
+        y_labels = [f"C{row['Cluster']}: {cluster_words.get(row['Cluster'], '')[:60]}" 
+                   for _, row in wide.iterrows()]
+        
+        fig.add_trace(go.Bar(
+            x=wide[block].values,  # Positive for right side
+            y=y_labels,
+            name=block.capitalize(),
+            orientation='h',
+            marker=dict(
+                color=color_map.get(block, "#999999"),
+                line=dict(color="white", width=0.5)
+            ),
+            hovertemplate=(
+                f"<b>{block.capitalize()}</b><br>" +
+                "Cluster: %{y}<br>" +
+                "Anteil: %{customdata:.1%}<br>" +
+                "Seite: Rechts<extra></extra>"
+            ),
+            customdata=wide[block].values,
+            legendgroup="right",
+            showlegend=True
+        ))
+    
+    # Sort y-axis labels by political score (most right-leaning at top)
     sorted_labels = [f"C{row['Cluster']}: {cluster_words.get(row['Cluster'], '')[:60]}" 
-                    for _, row in wide.sort_values("political_score", ascending=True).iterrows()]
+                    for _, row in wide.sort_values("political_score", ascending=False).iterrows()]
     
     # Update layout
     fig.update_layout(
         title=dict(
-            text=f"<b>Politische Block-Verteilung nach Cluster (Top {topn})</b><br>" +
-                 "<sub>Links (negativ) ← → Rechts (positiv)</sub>",
+            text=f"<b>Resultate der Dispersionsanalyse geclustert ({topn} Cluster)</b>",
             font=dict(size=TITLE_FONT_SIZE, family=DEFAULT_FONT),
             x=0.5,
             xanchor='center'
@@ -325,32 +345,33 @@ def create_diverging_dotplot(block_comp: pd.DataFrame, cluster_words: dict, topn
             range=[-1.05, 1.05]
         ),
         yaxis=dict(
-            title="<b>Cluster</b>",
+            title="<b>Cluster (sortiert nach politischem Spektrum)</b>",
             title_font=dict(size=AXIS_TITLE_FONT_SIZE, family=DEFAULT_FONT),
-            tickfont=dict(size=14, family=DEFAULT_FONT),  # Readable size
+            tickfont=dict(size=13, family=DEFAULT_FONT),
             categoryorder='array',
             categoryarray=sorted_labels,
             automargin=True
         ),
-        barmode='stack',
-        height=max(600, topn * 35),
-        width=1800,
+        barmode='relative',  # Stacks bars from center outward
+        height=max(700, topn * 38),
+        width=1900,
         hovermode='closest',
         bargap=0.15,
         font=dict(family=DEFAULT_FONT),
         plot_bgcolor="rgba(250,251,252,0.9)",
         paper_bgcolor="white",
-        margin=dict(l=450, r=150, t=120, b=100),
+        margin=dict(l=480, r=180, t=120, b=100),
         legend=dict(
             orientation="v",
             yanchor="middle",
             y=0.5,
             xanchor="left",
             x=1.02,
-            font=dict(size=LEGEND_FONT_SIZE, family=DEFAULT_FONT),
+            font=dict(size=LEGEND_FONT_SIZE-2, family=DEFAULT_FONT),
             bgcolor="rgba(255,255,255,0.95)",
             bordercolor="rgba(128,128,128,0.3)",
-            borderwidth=1
+            borderwidth=1,
+            title=dict(text="<b>Politische Blöcke</b>", font=dict(size=LEGEND_FONT_SIZE, family=DEFAULT_FONT))
         )
     )
     
