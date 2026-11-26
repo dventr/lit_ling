@@ -184,13 +184,10 @@ If you use this toolkit in your research, please cite:
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-## License
-
-[Choose and specify your license - e.g., MIT, GPL-3.0, etc.]
 
 ## Contact
 
-[Your contact information]
+davide.ventre@uzh.ch
 
 ## Acknowledgments
 
